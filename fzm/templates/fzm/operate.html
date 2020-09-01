@@ -8,17 +8,19 @@
 </ol>
 <div class="card shadow mb-4">
 <div class="card-header py-3">
-  <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+  <h6 class="m-0 font-weight-bold text-primary">Operate Log</h6>
 </div>
 <div class="card-body">
   <div class="table-responsive">
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Position</th>
-          <th>Office</th>
-          <th>Age</th>
+            <th>ID</th>
+            <th>Time</th>
+            <th>Add/Remove</th>
+            <th>Good</th>
+            <th>Quantity</th>
+            <th>Note</th>
         </tr>
       </thead>
       <tbody>
@@ -40,7 +42,7 @@
                 </tr>
             {% endfor %}
         {% else %}
-            <p>没有定义物品</p>
+            <p>Null</p>
         {% endif %}
       </tbody>
     </table>
