@@ -16,6 +16,7 @@ def index(request):
     return render(request, 'fzm/index.html')
 
 
+@login_required
 def view_good(request):
     good_list = Good.objects.all()
     return render(request, 'fzm/good.html', {
@@ -23,6 +24,7 @@ def view_good(request):
     })
 
 
+@login_required
 def view_type(request):
     type_list = Type.objects.all()
     return render(request, 'fzm/type.html', {
@@ -30,6 +32,7 @@ def view_type(request):
     })
 
 
+@login_required
 def view_operate(request):
     operate_list = StockOperate.objects.order_by('-id')
     return render(request, 'fzm/operate.html', {
@@ -37,11 +40,13 @@ def view_operate(request):
     })
 
 
+@login_required
 def view_stock(request):
     good_list = Good.objects.all()
     return render(request, 'fzm/stock.html', {'good_list': good_list})
 
 
+@login_required
 def view_do(request):
     select = request.POST['select']
     count = request.POST['count']
@@ -61,33 +66,6 @@ def view_do(request):
     return render(request, 'fzm/result.html')
 
 
+@login_required()
 def view_result(request):
     return render(request, 'fzm/result.html')
-
-
-def view_login(request):
-    if request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return HttpResponseRedirect(reverse('fzm:index'))
-        else:
-            return HttpResponse('wrong user name or password.')
-    return render(request, 'fzm/login.html')
-
-
-def view_logout(request):
-    logout(request)
-    return HttpResponse('success logout.')
-
-
-def view_register(request):
-    return render(request, 'fzm/register.html')
-
-
-def view_password(request):
-    return render(request, 'fzm/password.html')
-
-
