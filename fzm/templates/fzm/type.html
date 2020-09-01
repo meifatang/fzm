@@ -1,0 +1,43 @@
+{% extends "fzm/layout.html" %}
+
+{% block content %}
+<h1 class="mt-4">{{ header }}</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+    <li class="breadcrumb-item active">Type</li>
+</ol>
+<div class="card mb-4">
+    <div class="card-header">
+        Type Table
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 159px;">ID</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 248px;">Name</th>
+                            </thead>
+                            <tbody>
+                                {% if type_list %}
+                                    {% for type in type_list %}
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">{{ type.id }}</td>
+                                            <td class="sorting_1">{{ type.type_name }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>无内容</p>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

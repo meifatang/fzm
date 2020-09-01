@@ -1,0 +1,57 @@
+{% extends "fzm/layout.html" %}
+
+{% block content %}
+<h1 class="mt-4">{{ header }}</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+    <li class="breadcrumb-item active">Goods</li>
+</ol>
+<div class="card mb-4">
+    <div class="card-header">
+        Goods Table
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 159px;">ID</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 248px;">Time</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 115px;">Action</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 115px;">Good</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 115px;">Quantity</th>
+                                    <th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 115px;">Note</th>
+                            </thead>
+                            <tbody>
+                                {% if operate_list %}
+                                    {% for operate in operate_list %}
+                                        <tr role="row" class="odd">
+                                            <td class="sorting_1">{{ operate.id }}</td>
+                                            <td class="sorting_1">{{ operate.the_time }}</td>
+                                            <td class="sorting_1">
+                                                {% if operate.operate_quantity > 0 %}
+                                                    Stock In
+                                                {% else %}
+                                                    Stock Out
+                                                {% endif %}
+                                            </td>
+                                            <td class="sorting_1">{{ operate.good.good_name }}</td>
+                                            <td class="sorting_1">{{ operate.operate_quantity }}</td>
+                                            <td class="sorting_1">{{ operate.note }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <p>没有定义物品</p>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
