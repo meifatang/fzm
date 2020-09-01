@@ -1,24 +1,19 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.utils import timezone
 from django.contrib import messages
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView, \
     PasswordResetView, PasswordResetDoneView
 
 from .models import Good, Type, StockOperate
 
 
+@login_required
 def index(request):
-    good_list = Good.objects.all()
-    type_list = Type.objects.all()
-    operate_list = StockOperate.objects.order_by('-id')
-    return render(request, 'fzm/index.html', {
-        'good_list': good_list,
-        'type_list': type_list,
-        'operate_list': operate_list,
-    })
+    return render(request, 'fzm/index.html')
 
 
 def view_good(request):
@@ -72,10 +67,20 @@ def view_result(request):
 
 def view_login(request):
     if request.POST:
-        email = request.POST['email']
+        username = request.POST['username']
         password = request.POST['password']
-        authenticate()
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('fzm:index'))
+        else:
+            return HttpResponse('wrong user name or password.')
     return render(request, 'fzm/login.html')
+
+
+def view_logout(request):
+    logout(request)
+    return HttpResponse('success logout.')
 
 
 def view_register(request):
