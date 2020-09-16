@@ -1,47 +1,43 @@
 {% extends "fzm/layout.html" %}
 
 {% block content %}
-<div class="card">
-    <div class="card-body">
-        <form action="{% url 'fzm:do' %}" method="post">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-sm-4 col-md-4">
-                    <select name="select" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option selected disabled>Choose Good here</option>
-                    {% for good in good_list %}
-                        <option id="good{{ forloop.counter }}" value="{{ good.id }}">{{ good }}</option>
-                    {% endfor %}
-                    </select>
-                </div>
-                <div class="col-sm-4 col-md-4">
-                    <input type="number" name="count" class="form-control bg-light small"
-                           placeholder="Modify Inventory">
-                </div>
-                <div class="col-sm-4 col-md-4">
-                    <input type="submit" value="Submit" class="btn btn-primary">
-                </div>
+<div class="row">
+    <div class="col-sm-4 col-md-4 col-sm-offset-4 col-md-offset-4">
+        <div class="card">
+            <div class="card-body">
+                <form action="{% url 'fzm:do' %}" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <select name="select" class="custom-select custom-select-sm form-control form-control-sm">
+                                <option selected disabled>Choose Good here</option>
+                            {% for good in good_list %}
+                                <option id="good{{ forloop.counter }}" value="{{ good.id }}">{{ good }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <input type="number" name="count" class="form-control bg-light small"
+                                   placeholder="Modify Inventory">
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <input type="submit" value="Submit" class="btn btn-primary">
+                        </div>
+                    </div>
+
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 </div>
-
-<div class="modal fade" id="theModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">×</span>
-      </button>
-    </div>
-    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-    <div class="modal-footer">
-      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-      <a class="btn btn-primary" href="login.html">Logout</a>
-    </div>
-  </div>
-</div>
-</div>
-
 {% endblock %}

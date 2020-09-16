@@ -67,6 +67,16 @@ def view_do(request):
     return render(request, 'fzm/result.html')
 
 
+@login_required
+def view_add(request):
+    pass
+
+
+@login_required
+def view_remove(request):
+    pass
+
+
 @login_required()
 def view_result(request):
     return render(request, 'fzm/result.html')
